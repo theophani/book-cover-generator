@@ -26,6 +26,7 @@ h1 {
 	font-size: 1em;
 	margin: 1em;
 	line-height: 1em;
+	font-family: "Times New Roman", serif;
 }
 
 h1.dropped {
@@ -46,6 +47,20 @@ h1.center {
 	text-align: center;
 }
 
+h1.sans {
+	font-family: "Helvetica", sans-serif;
+	line-height: 1.1;
+	font-size: 0.9em;
+}
+
+h1.mono {
+	font-family: "Consolas", "Menlo", "Courier", "monospace";
+	font-size: 0.9em;
+	line-height: 1.2;
+	font-weight: normal;
+}
+
+
 </style>
 
 </head>
@@ -55,16 +70,22 @@ h1.center {
 
 <script>
 
-var verticalStyle = [
+var verticalStyles = [
 	"standard",
 	"dropped",
 	"bottom"
 ]
 
-var horizontalStyle = [
+var horizontalStyles = [
 	"standard",
 	"center",
 	"right"
+]
+
+var fontStyles = [
+	"standard",
+	"sans",
+	"mono"
 ]
 
 var nouns = [
@@ -109,8 +130,9 @@ function generateTitle () {
 
 function generateTitleClassname () {
 	return [
-		verticalStyle,
-		horizontalStyle
+		fontStyles,
+		verticalStyles,
+		horizontalStyles
 	].map(pickOne).join(" ")
 }
 
