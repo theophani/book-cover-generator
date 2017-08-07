@@ -27,11 +27,18 @@ body {
 	color: #fff;
 }
 
+#bookcover.on-color h1 {
+	background-color: #fff;
+	color: #333;
+}
+
 h1 {
 	font-size: 1em;
-	margin: 1em;
+	padding: 1em;
+	margin: 0;
 	line-height: 1em;
 	font-family: "Times New Roman", serif;
+	width: 8em;
 }
 
 h1.dropped {
@@ -55,14 +62,14 @@ h1.center {
 h1.sans {
 	font-family: "Helvetica", sans-serif;
 	line-height: 1.1;
-	font-size: 0.9em;
 }
 
 h1.mono {
 	font-family: "Consolas", "Menlo", "Courier", "monospace";
-	font-size: 0.9em;
+	font-size: 0.8em;
 	line-height: 1.2;
 	font-weight: normal;
+	width: 10.5em;
 }
 
 </style>
@@ -75,7 +82,7 @@ h1.mono {
 <script>
 
 const reversePercent = 0.2
-const colorCoverPercent = 0.2
+const onCoverPercent = 0.2
 const colorTitlePercent = 0.5
 
 const verticalStyles = [
@@ -161,11 +168,12 @@ function addTitle (cover) {
 
 function getTheme () {
 	const val = Math.random()
+
 	if (val < reversePercent) {
 		return "reverse"
 	}
 
-	if (val < (reversePercent + colorCoverPercent)) {
+	if (val < (reversePercent + onCoverPercent)) {
 		return "on-color"
 	}
 
