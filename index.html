@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Book Cover Generator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+<style>
+
+body {
+	font-size: 2.5em;
+	color: #333;
+	background-color: #f5f5f5;
+}
+
+#bookcover {
+	margin: 2em auto;
+	width: 10em;
+	background-color: white;
+	min-height: 15em;
+	border: 2px solid #333;
+	position: relative;
+}
+
+h1 {
+	font-size: 1em;
+	margin: 1em;
+	line-height: 1em;
+}
+
+h1.dropped {
+	position: absolute;
+	top: 4em;
+}
+
+h1.bottom {
+	position: absolute;
+	bottom: 0em;
+}
+
+h1.right {
+	text-align: right;
+}
+
+h1.center {
+	text-align: center;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="bookcover"></div>
+
+<script>
+
+var verticalStyle = [
+	"standard",
+	"dropped",
+	"bottom"
+]
+
+var horizontalStyle = [
+	"standard",
+	"center",
+	"right"
+]
+
+var nouns = [
+	"Alchemy",
+	"Variety",
+	"Illusion",
+	"Allusion",
+	"Simplicity"
+];
+
+function pickOne (a) {
+	return a[ Math.floor(Math.random() * a.length) ]
+}
+
+function justNoun () {
+	return pickOne(nouns);
+}
+
+function onNoun () {
+	return "On " + justNoun();
+}
+
+function theNounOfNoun () {
+	var first = justNoun()
+	var second = justNoun()
+	while (second === first) {
+		second = justNoun()
+	}
+
+	return "The " + first + " of " + second
+}
+
+function generateTitle () {
+	var generators = [
+		justNoun,
+		onNoun,
+		theNounOfNoun
+	]
+
+	return pickOne(generators)();
+}
+
+function generateTitleClassname () {
+	return [
+		verticalStyle,
+		horizontalStyle
+	].map(pickOne).join(" ")
+}
+
+function addTitle (cover) {
+	var title = document.createElement("h1")
+	title.innerText = generateTitle();
+	title.className = generateTitleClassname();
+	cover.appendChild(title);
+}
+
+addTitle(bookcover);
+
+</script>
+
+</body>
+</html>
