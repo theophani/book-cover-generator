@@ -33,6 +33,10 @@ body {
 	color: #333;
 }
 
+#bookcover.reverse h1.dropped + #bookillustration {
+	background: #fff;
+}
+
 h1 {
 	font-size: 1em;
 	padding: 1em;
@@ -86,8 +90,32 @@ h1.dropped.mono {
 	width: 10em;
 	position: relative;
 	top: 2em;
-	transform: skewY(10deg);
 	z-index: 0;
+	transform: skewY(10deg);
+}
+
+#bookillustration.reverse-skew {
+	transform: skewY(-10deg);
+}
+
+#bookillustration.angle-striped {
+background: repeating-linear-gradient(
+		45deg,
+		transparent,
+		transparent 10px,
+		#fff 10px,
+		#fff 20px
+	);
+}
+
+#bookillustration.horizontal-striped {
+background: repeating-linear-gradient(
+		10deg,
+		transparent,
+		transparent 10px,
+		#fff 10px,
+		#fff 20px
+	);
 }
 
 #bookcover.no-color h1.dropped {
@@ -113,6 +141,7 @@ h1.dropped + #bookillustration {
 const reversePercent = 0.2
 const onCoverPercent = 0.2
 const colorTitlePercent = 0.5
+const patternIllustrationPercent = 0.2
 
 const verticalStyles = [
 	"standard",
@@ -146,6 +175,17 @@ const colors = [
 	"darkorange",
 	"orchid",
 	"chartreuse"
+]
+
+const illustrationOrientations = [
+	"standard",
+	"reverse-skew"
+]
+
+const illustrationPatterns = [
+	"standard",
+	"angle-striped",
+	"horizontal-striped",
 ]
 
 function pickOne (a) {
@@ -229,8 +269,20 @@ function setTheme (cover, illustration) {
 	}
 }
 
+function setIllustraton (illustration) {
+	illustration.className = pickOne(illustrationOrientations)
+
+	if (Math.random() < patternIllustrationPercent) {
+		illustration.className = [
+			illustration.className,
+			pickOne(illustrationPatterns)
+		].join(" ")
+	}
+}
+
 addTitle(booktitle);
 setTheme(bookcover, bookillustration);
+setIllustraton(bookillustration);
 
 </script>
 
