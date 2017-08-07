@@ -77,7 +77,9 @@ h1.mono {
 </head>
 <body>
 
-<div id="bookcover"></div>
+<div id="bookcover">
+	<h1 id="booktitle"></h1>
+</div>
 
 <script>
 
@@ -159,11 +161,9 @@ function generateTitleClassname () {
 	].map(pickOne).join(" ")
 }
 
-function addTitle (cover) {
-	var title = document.createElement("h1")
+function addTitle (title) {
 	title.innerText = generateTitle();
 	title.className = generateTitleClassname();
-	cover.appendChild(title);
 }
 
 function getTheme () {
@@ -196,7 +196,7 @@ function setTheme (cover) {
 	}
 }
 
-addTitle(bookcover);
+addTitle(booktitle);
 setTheme(bookcover);
 
 </script>
