@@ -13,7 +13,7 @@ body {
 	background-color: #f5f5f5;
 }
 
-#bookcover {
+.book-cover {
 	margin: 2em auto;
 	width: 10em;
 	background-color: white;
@@ -23,17 +23,17 @@ body {
 	z-index: -1;
 }
 
-#bookcover.reverse {
+.book-cover.reverse {
 	background-color: #333;
 	color: #fff;
 }
 
-#bookcover.on-color h1 {
+.book-cover.on-color h1 {
 	background-color: #fff;
 	color: #333;
 }
 
-#bookcover.reverse h1.dropped + #bookillustration {
+.book-cover.reverse h1.dropped + .book-illustration {
 	background: #fff;
 }
 
@@ -84,7 +84,7 @@ h1.dropped.mono {
 	top: 5em;
 }
 
-#bookillustration {
+.book-illustration {
 	background-color: #fff;
 	height: 7em;
 	width: 10em;
@@ -94,11 +94,11 @@ h1.dropped.mono {
 	transform: skewY(10deg);
 }
 
-#bookillustration.reverse-skew {
+.book-illustration.reverse-skew {
 	transform: skewY(-10deg);
 }
 
-#bookillustration.angle-striped {
+.book-illustration.angle-striped {
 background: repeating-linear-gradient(
 		45deg,
 		transparent,
@@ -108,7 +108,7 @@ background: repeating-linear-gradient(
 	);
 }
 
-#bookillustration.horizontal-striped {
+.book-illustration.horizontal-striped {
 background: repeating-linear-gradient(
 		10deg,
 		transparent,
@@ -118,11 +118,11 @@ background: repeating-linear-gradient(
 	);
 }
 
-#bookcover.no-color h1.dropped {
+.book-cover.no-color h1.dropped {
 	color: #333;
 }
 
-h1.dropped + #bookillustration {
+h1.dropped + .book-illustration {
 	top: 3em;
 }
 
@@ -131,9 +131,9 @@ h1.dropped + #bookillustration {
 </head>
 <body>
 
-<div id="bookcover">
-	<h1 id="booktitle"></h1>
-	<div id="bookillustration"></div>
+<div class="book-cover">
+	<h1 class="book-title"></h1>
+	<div class="book-illustration"></div>
 </div>
 
 <script>
@@ -142,6 +142,7 @@ const reversePercent = 0.2
 const onCoverPercent = 0.2
 const colorTitlePercent = 0.5
 const patternIllustrationPercent = 0.2
+const noIllustrationPercent = 0.05
 
 const verticalStyles = [
 	"standard",
@@ -220,17 +221,19 @@ function generateTitle () {
 	return pickOne(generators)();
 }
 
-function generateTitleClassname () {
-	return [
+function addTitleClassNames (elem) {
+	[
 		fontStyles,
 		verticalStyles,
 		horizontalStyles
-	].map(pickOne).join(" ")
+	].map(pickOne).forEach(function (className) {
+		elem.classList.add(className)
+	})
 }
 
 function addTitle (title) {
 	title.innerText = generateTitle();
-	title.className = generateTitleClassname();
+	addTitleClassNames(title);
 }
 
 function getTheme () {
@@ -250,13 +253,13 @@ function getTheme () {
 function setTheme (cover, illustration) {
 	const theme = getTheme()
 
-	cover.className = theme
+	cover.classList.add(theme)
 
 	if (theme === "reverse") {
 		if (Math.random() > colorTitlePercent) {
 			cover.style.color = pickOne(colors)
 		} else {
-			cover.className = cover.className + " no-color"
+			cover.classList.add("no-color")
 		}
 	}
 
@@ -270,15 +273,16 @@ function setTheme (cover, illustration) {
 }
 
 function setIllustraton (illustration) {
-	illustration.className = pickOne(illustrationOrientations)
+	illustration.classList.add(pickOne(illustrationOrientations))
 
 	if (Math.random() < patternIllustrationPercent) {
-		illustration.className = [
-			illustration.className,
-			pickOne(illustrationPatterns)
-		].join(" ")
+		illustration.classList.add(pickOne(illustrationPatterns))
 	}
 }
+
+const booktitle = document.querySelector(".book-title")
+const bookcover = document.querySelector(".book-cover")
+const bookillustration = document.querySelector(".book-illustration")
 
 addTitle(booktitle);
 setTheme(bookcover, bookillustration);
