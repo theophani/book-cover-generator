@@ -131,11 +131,6 @@ h1.dropped + .book-illustration {
 </head>
 <body>
 
-<div class="book-cover">
-	<h1 class="book-title"></h1>
-	<div class="book-illustration"></div>
-</div>
-
 <script>
 
 const reversePercent = 0.2
@@ -280,13 +275,26 @@ function setIllustraton (illustration) {
 	}
 }
 
-const booktitle = document.querySelector(".book-title")
-const bookcover = document.querySelector(".book-cover")
-const bookillustration = document.querySelector(".book-illustration")
+function makeBookCover () {
+	const bookcover = document.createElement("div")
+	const booktitle = document.createElement("h1")
+	const bookillustration = document.createElement("div")
 
-addTitle(booktitle);
-setTheme(bookcover, bookillustration);
-setIllustraton(bookillustration);
+	booktitle.className = "book-title"
+	bookcover.className = "book-cover"
+	bookillustration.className = "book-illustration"
+
+	bookcover.appendChild(booktitle)
+	bookcover.appendChild(bookillustration)
+
+	addTitle(booktitle)
+	setTheme(bookcover, bookillustration)
+	setIllustraton(bookillustration)
+
+	document.body.appendChild(bookcover)
+}
+
+makeBookCover()
 
 </script>
 
