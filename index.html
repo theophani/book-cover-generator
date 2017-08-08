@@ -11,10 +11,23 @@ body {
 	font-size: 2.5em;
 	color: #333;
 	background-color: #f5f5f5;
+	padding: 1.5em;
+	text-align: center;
+}
+
+body.has-many-covers {
+	font-size: 1.2em
+}
+
+body.has-many-covers .book-cover {
+	border-width: 1px;
 }
 
 .book-cover {
-	margin: 2em auto;
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+	margin: 0.5em;
 	width: 10em;
 	background-color: white;
 	min-height: 15em;
@@ -99,22 +112,22 @@ h1.dropped.mono {
 }
 
 .book-illustration.angle-striped {
-background: repeating-linear-gradient(
+	background: repeating-linear-gradient(
 		45deg,
 		transparent,
-		transparent 10px,
-		#fff 10px,
-		#fff 20px
+		transparent 0.25em,
+		#fff 0.25em,
+		#fff 0.5em
 	);
 }
 
 .book-illustration.horizontal-striped {
-background: repeating-linear-gradient(
+	background: repeating-linear-gradient(
 		10deg,
 		transparent,
-		transparent 10px,
-		#fff 10px,
-		#fff 20px
+		transparent 0.25em,
+		#fff 0.25em,
+		#fff 0.5em
 	);
 }
 
@@ -276,7 +289,7 @@ function setIllustraton (illustration) {
 	}
 }
 
-function makeBookCover () {
+function makeBookCover (library) {
 	const bookcover = document.createElement("div")
 	const booktitle = document.createElement("h1")
 	const bookillustration = document.createElement("div")
@@ -292,11 +305,21 @@ function makeBookCover () {
 	setTheme(bookcover, bookillustration)
 	setIllustraton(bookillustration)
 
-	document.body.appendChild(bookcover)
+	library.appendChild(bookcover)
 }
 
+function makeBookstore (num) {
+	const bookstore = document.body
+	if (num > 1) {
+		bookstore.className = "has-many-covers"
+	}
+	return bookstore
+}
+
+const bookstore = makeBookstore(numOfCovers)
+
 while (document.querySelectorAll('.book-cover').length < numOfCovers) {
-	makeBookCover()
+	makeBookCover(bookstore)
 }
 
 
