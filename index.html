@@ -241,8 +241,19 @@ function theNounOfNoun () {
 	return "The " + first + " of " + second
 }
 
+function nounConjuctionNoun () {
+	var first = justNoun()
+	var second = justNoun()
+	while (second === first) {
+		second = justNoun()
+	}
+
+	return [first, pickOne(["&", "and", "without"]), second].join(" ")
+}
+
 function generateTitle () {
 	var generators = [
+		nounConjuctionNoun,
 		justNoun,
 		onNoun,
 		theNounOfNoun
@@ -342,7 +353,6 @@ const bookstore = makeBookstore(numOfCovers)
 while (document.querySelectorAll('.book-cover').length < numOfCovers) {
 	makeBookCover(bookstore)
 }
-
 
 </script>
 
