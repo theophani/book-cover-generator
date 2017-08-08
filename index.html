@@ -148,7 +148,8 @@ h1.dropped + .book-illustration {
 
 <script>
 
-const numOfCovers = 24
+const coversSearchMatch = window.location.search.match("covers=([0-9]+)")
+const numOfCovers = coversSearchMatch ? parseInt(coversSearchMatch[1]) : 1
 const reversePercent = 0.2
 const onCoverPercent = 0.2
 const colorTitlePercent = 0.5
