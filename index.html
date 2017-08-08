@@ -254,9 +254,14 @@ function nounConjuctionNoun () {
 	return [first, pickOne(["&", "and", "without"]), second].join(" ")
 }
 
+function theNounReader () {
+	return "The " + justNoun() + " Reader";
+}
+
 function generateTitle () {
 	var generators = [
 		nounConjuctionNoun,
+		theNounReader,
 		justNoun,
 		onNoun,
 		theNounOfNoun
