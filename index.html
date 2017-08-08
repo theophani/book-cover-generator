@@ -133,6 +133,7 @@ h1.dropped + .book-illustration {
 
 <script>
 
+const numOfCovers = 12
 const reversePercent = 0.2
 const onCoverPercent = 0.2
 const colorTitlePercent = 0.5
@@ -294,7 +295,10 @@ function makeBookCover () {
 	document.body.appendChild(bookcover)
 }
 
-makeBookCover()
+while (document.querySelectorAll('.book-cover').length < numOfCovers) {
+	makeBookCover()
+}
+
 
 </script>
 
